@@ -120,7 +120,8 @@ rm(X_final,cols)
 tidy_data_set <- gather(X_means, measurement, average, -(c(subjectid,activity)))
 rm(X_means)
 
-# Write the tidy_data_set to a txt file.
+# Sort and write the tidy_data_set to a txt file.
 tidy_data_set$average <- unlist(tidy_data_set$average) # unlist for write.
+tidy_data_set <- tidy_data_set[order(subjectid,activity,measurement)]
 write.table(tidy_data_set, file="tidy_data_set.txt", row.names=FALSE)
 
