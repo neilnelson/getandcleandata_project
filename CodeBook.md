@@ -1,8 +1,3 @@
-### Requirement
-
-A code book that describes the variables, the data, and any transformations or
-work that you performed to clean up the data called CodeBook.md. See https://class.coursera.org/getdata-007/human_grading/view/courses/972585/assessments/3/submissions.
-
 ### Data Source
 
 Description: http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones
