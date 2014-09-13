@@ -25,5 +25,5 @@ The *subject*, *y*, and *X_sub* tables were concatenated with cbind to obtain th
 
 An *X_means* table for all feature variables by subject and activity was computed.
 
-The final tidy table *tidy_data_set* was gathered from the *X_means* table. The result contained the prior *subjectid* and *activity* variables and a key variable of feature names *measurement* and a value variable of the mean, *average*, for each subject/activity/feature combination. A *tidy_data_set.txt* was written.
+The final tidy table *tidy_data_set* was gathered from the *X_means* table. The result contained the prior *subjectid* and *activity* variables and a key variable of feature names *measurement* and a value variable of the mean, *average*, for each subject/activity/feature combination. *tidy_data_set* was sorted and the *tidy_data_set.txt* was written.
 
