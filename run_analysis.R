@@ -21,9 +21,9 @@ library(tidyr)
 
 # Create work directory if needed. A recommended item in the documentation.
 if (!file.exists(work_dir)) {
-	dir.create(work_dir, recursive=TRUE)
-	if (!file.exists(work_dir)) # should exist but making sure
-		stop("ERROR: Unable to create work directory ")
+  dir.create(work_dir, recursive=TRUE)
+  if (!file.exists(work_dir)) # should exist but making sure
+    stop("ERROR: Unable to create work directory ")
 }
 setwd(work_dir)
 
@@ -31,15 +31,15 @@ setwd(work_dir)
 # from the prior item.
 HAR_dir <- "UCI HAR Dataset"
 if (!file.exists(HAR_dir)) {
-	fileDest <- "HAR_Dataset.zip"
-	if (!file.exists(fileDest)) {
-		fileUrl <- "https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"
-		download.file(fileUrl, destfile=fileDest, method="curl")
-		dateDownloaded <- date()
-		dput(dateDownloaded,file="HAR_Dataset.zip_download_date")
-		rm(dateDownloaded)
-	}
-	unzip(fileDest)
+  fileDest <- "HAR_Dataset.zip"
+  if (!file.exists(fileDest)) {
+    fileUrl <- "https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"
+    download.file(fileUrl, destfile=fileDest, method="curl")
+    dateDownloaded <- date()
+    dput(dateDownloaded,file="HAR_Dataset.zip_download_date")
+    rm(dateDownloaded)
+  }
+  unzip(fileDest)
 }
 
 # Load X_train and X_test tables efficiently. These files were observed to have
@@ -59,14 +59,16 @@ con <- file(paste0("./",HAR_dir,"/train/X_train.txt"), "r", blocking=FALSE)
 first_line <- readLines(con, n=1)
 close(con)
 X_train_rows <- as.integer(X_train_info$size/nchar(first_line))
-X_train <- read.table(paste0("./",HAR_dir,"/train/X_train.txt"), comment.char="", colClasses = "numeric", nrows=X_train_rows)
+X_train <- read.table(paste0("./",HAR_dir,"/train/X_train.txt"), comment.char="",
+  colClasses = "numeric", nrows=X_train_rows)
 
 X_test_info <- file.info(paste0("./",HAR_dir,"/test/X_test.txt"))
 con <- file(paste0("./",HAR_dir,"/test/X_test.txt"), "r", blocking=FALSE)
 first_line <- readLines(con, n=1)
 close(con)
 X_test_rows <- as.integer(X_test_info$size/nchar(first_line))
-X_test <- read.table(paste0("./",HAR_dir,"/test/X_test.txt"), comment.char = "", colClasses = "numeric", nrows=X_test_rows)
+X_test <- read.table(paste0("./",HAR_dir,"/test/X_test.txt"), comment.char = "",
+  colClasses = "numeric", nrows=X_test_rows)
 
 # rbind X_train and X_test tables and remove objects no longer needed.
 X <- rbind(X_train,X_test)
@@ -96,7 +98,8 @@ names(y) <- "id"
 # the y table with its corresponding activity label.
 activity_labels <- read.table(paste0("./",HAR_dir,"/activity_labels.txt"))
 names(activity_labels) <- c("id","activity")
-activity_labels$activity <- tolower(gsub("\\(\\)","",gsub("_","",activity_labels$activity)))
+activity_labels$activity <- tolower(gsub("\\(\\)","",
+  gsub("_","",activity_labels$activity)))
 y[,"activity"] <- as.factor(activity_labels[y[,"id"],"activity"])
 rm(activity_labels)
 
@@ -116,7 +119,8 @@ setattr(X_final,"class",c("data.table","data.frame"))
 
 # Get the column names of the features to be averaged and average them.
 cols <- names(X_final)[3:length(names(X_final))]
-X_means <- X_final[,lapply(.SD, function(x) list(mean=mean(x))), by=c("subjectid","activity"), .SDcols=cols ]
+X_means <- X_final[,lapply(.SD, function(x) list(mean=mean(x))),
+  by=c("subjectid","activity"), .SDcols=cols ]
 rm(X_final,cols)
 
 # Gather the averages to measurement (key) and average (value) columns.
