@@ -108,7 +108,7 @@ X_final <- cbind(subject,y[,2],X_sub)
 rm(subject,y,X_sub)
 names(X_final)[1:2] <- c("subjectid","activity")
 
-# Use a data.table method in the following.
+# Use data.table methods in the following.
 setattr(X_final,"class",c("data.table","data.frame"))
 
 # Get the column names of the features to be averaged and average them.
