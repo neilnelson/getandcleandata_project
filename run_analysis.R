@@ -111,7 +111,7 @@ names(X_final)[1:2] <- c("subjectid","activity")
 # Use a data.table method in the following.
 setattr(X_final,"class",c("data.table","data.frame"))
 
-# Get the columns names of the features to be averaged and average them.
+# Get the column names of the features to be averaged and average them.
 cols <- names(X_final)[3:length(names(X_final))]
 X_means <- X_final[,lapply(.SD, function(x) list(mean=mean(x))), by=c("subjectid","activity"), .SDcols=cols ]
 rm(X_final,cols)
