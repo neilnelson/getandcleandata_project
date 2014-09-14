@@ -47,7 +47,7 @@ if (!file.exists(HAR_dir)) {
 # the file would be greater than or equal to the file size divided by the length
 # of the first line. The 'greater than' possiblity results from having a line
 # length available after reading that does not include the line termination and
-# triming of spaces. The ratio of reduction in observed line length over the
+# spaces from trimming. The ratio of reduction in observed line length over the
 # actual line length is quite small, and having a small excess of nrows provided
 # to the read.table syntax is noted in the documentation as acceptable.
 
