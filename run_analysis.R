@@ -4,8 +4,14 @@
 # contamination.
 rm(list=ls())
 
+create_work_dir_and_download_data <- FALSE
+
+# work_dir should not be required according to the testing instructions.
 # *** Replace the following work directory with your own.
-work_dir <- "/home/nnelson/Documents/classes/coursera/data_specialization/getdata/project"
+if (create_work_dir_and_download_data)
+  work_dir <- "/home/nnelson/Documents/classes/coursera/data_specialization/getdata/project"
+
+HAR_dir <- "UCI HAR Dataset"
 
 # Requirement
 # 1. Merges the training and the test sets to create one data set.
@@ -19,27 +25,28 @@ work_dir <- "/home/nnelson/Documents/classes/coursera/data_specialization/getdat
 library(data.table)
 library(tidyr)
 
-# Create work directory if needed. A recommended item in the documentation.
-if (!file.exists(work_dir)) {
-  dir.create(work_dir, recursive=TRUE)
-  if (!file.exists(work_dir)) # should exist but making sure
-    stop("ERROR: Unable to create work directory ")
-}
-setwd(work_dir)
+# work_dir should not be required according to the testing instructions.
+# Create work directory if needed.
+if (create_work_dir_and_download_data) {
+	if (!file.exists(work_dir)) {
+		dir.create(work_dir, recursive=TRUE)
+		if (!file.exists(work_dir)) # should exist but making sure
+		  stop("ERROR: Unable to create work directory ")
+	}
+	setwd(work_dir)
 
-# Download and unzip dataset if needed. This is an easy recommended implication
-# from the prior item.
-HAR_dir <- "UCI HAR Dataset"
-if (!file.exists(HAR_dir)) {
-  fileDest <- "HAR_Dataset.zip"
-  if (!file.exists(fileDest)) {
-    fileUrl <- "https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"
-    download.file(fileUrl, destfile=fileDest, method="curl")
-    dateDownloaded <- date()
-    dput(dateDownloaded,file="HAR_Dataset.zip_download_date")
-    rm(dateDownloaded)
-  }
-  unzip(fileDest)
+	# Download and unzip dataset if needed.
+	if (!file.exists(HAR_dir)) {
+		fileDest <- "HAR_Dataset.zip"
+		if (!file.exists(fileDest)) {
+		  fileUrl <- "https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"
+		  download.file(fileUrl, destfile=fileDest, method="curl")
+		  dateDownloaded <- date()
+		  dput(dateDownloaded,file="HAR_Dataset.zip_download_date")
+		  rm(dateDownloaded)
+		}
+		unzip(fileDest)
+	}
 }
 
 # Load X_train and X_test tables efficiently. These files were observed to have
