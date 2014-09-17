@@ -2,7 +2,7 @@
 
 # Remove any prior objects to minimize resource use and avoid possible
 # contamination.
-rm(list=ls())
+# rm(list=ls())
 
 # work_dir and downloading should not be required according to the testing
 # instructions.
